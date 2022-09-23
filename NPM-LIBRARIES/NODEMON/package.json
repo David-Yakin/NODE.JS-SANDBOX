@@ -1,0 +1,16 @@
+{
+  "name": "nodemon",
+  "version": "1.0.0",
+  "description": "package json devDependencies nodemon",
+  "main": "app.js",
+  "scripts": {
+    "start": "node .",
+    "test": "node .",
+    "dev": "nodemon ."
+  },
+  "author": "David Yakin",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
