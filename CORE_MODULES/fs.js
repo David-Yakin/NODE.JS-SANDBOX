@@ -68,76 +68,43 @@ const FileSystem = require("fs");
 
 /********* יצירת מערך עם שמות הקבצים שנמצאים בתוך תיקייה בצורה אסינכרונית **********/
 
-// const { mkdir, readdir, writeFile } = require("fs/promises");
+const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
 
-// const fn = async () => {
-//   try {
-//     await mkdir(`${__dirname}/test`);
+const fn = async () => {
+  try {
+    await mkdir(`${__dirname}/test`);
 
-//     for (i = 0; i < 3; i++) {
-//       await writeFile(__dirname + `/test/testing-${i}.txt`, `file no. ${i}`);
-//       console.log(`testing-${i}.txt has been created!`);
-//     }
+    for (i = 0; i < 3; i++)
+      await writeFile(
+        `${__dirname}/test/testing-${i + 1}.txt`,
+        `file no. ${i + 1}`
+      );
 
-//     const filesArray = await readdir(__dirname + "/test");
-//     console.log(filesArray);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
+    const filesArray = await readdir(__dirname + "/test");
+    console.log(filesArray);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 // fn();
 
 /********* מחיקת כל הקבצים שנמצאים בתוך תיקייה ואת תיקייה עצמה **********/
 
-// const { readdir, rmdir, unlink } = require("fs/promises");
+// const remove = async () => {
+//   try {
+//     const files = await readdir(__dirname + "/test");
+//     files.forEach(async file => await unlink(`${__dirname}/test/${file}`));
+//     await rmdir(`${__dirname}/test`);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
-// readdir(__dirname + "/test")
-//   .then(files => files.forEach(file => unlink(`${__dirname}/test/${file}`)))
-//   .then(() => {
-//     rmdir(`${__dirname}/test`).catch(console.log);
-//   })
-//   .catch(console.log);
+// remove();
 
 /********* בדיקה אם נתיב קיים **********/
 // const isExists = FileSystem.existsSync(`${__dirname}/test`);
 // console.log(isExists);
 
 /********* משימת יצירת מספר קבצים עם שמות דינאמיים בתוך תיקייה **********/
-const fs = require("fs");
-const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
-
-const users = [
-  { name: "first", last: "user" },
-  { name: "second", last: "user" },
-  { name: "third", last: "user" },
-];
-
-const makeAndRemoveFilesAndFolder = async () => {
-  const isExists = fs.existsSync(`${__dirname}/users`);
-  if (!isExists) {
-    try {
-      await mkdir(`${__dirname}/users`);
-      users.forEach(async user => {
-        await writeFile(
-          __dirname + `/users/${user.name}-${user.last}.txt`,
-          `User name is: ${user.name} ${user.last}`
-        );
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  setTimeout(async () => {
-    try {
-      const files = await readdir(__dirname + "/users");
-      files.forEach(async file => await unlink(`${__dirname}/users/${file}`));
-      await rmdir(__dirname + "/users");
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, 5000);
-};
-
-makeAndRemoveFilesAndFolder();
