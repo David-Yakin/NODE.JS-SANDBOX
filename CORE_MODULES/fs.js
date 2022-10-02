@@ -68,24 +68,24 @@ const FileSystem = require("fs");
 
 /********* יצירת מערך עם שמות הקבצים שנמצאים בתוך תיקייה בצורה אסינכרונית **********/
 
-const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
+// const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
 
-const fn = async () => {
-  try {
-    await mkdir(`${__dirname}/test`);
+// const fn = async () => {
+//   try {
+//     await mkdir(`${__dirname}/test`);
 
-    for (i = 0; i < 3; i++)
-      await writeFile(
-        `${__dirname}/test/testing-${i + 1}.txt`,
-        `file no. ${i + 1}`
-      );
+//     for (i = 0; i < 3; i++)
+//       await writeFile(
+//         `${__dirname}/test/testing-${i + 1}.txt`,
+//         `file no. ${i + 1}`
+//       );
 
-    const filesArray = await readdir(__dirname + "/test");
-    console.log(filesArray);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     const filesArray = await readdir(__dirname + "/test");
+//     console.log(filesArray);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 // fn();
 
