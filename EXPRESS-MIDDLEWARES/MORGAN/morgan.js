@@ -10,10 +10,23 @@ app.use(
   )
 );
 
+// app.use(
+//   cors({
+//     origin: "http://127.0.0.1:5500",
+//     optionsSuccessStatus: 200,
+//   })
+// );
+
 app.use(
-  cors({
-    origin: "http://127.0.0.1:5500",
-    optionsSuccessStatus: 200,
+  morgan((tokens, req, res) => {
+    return [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      "-",
+      tokens["response-time"](req, res),
+      "ms",
+    ].join(" ");
   })
 );
 

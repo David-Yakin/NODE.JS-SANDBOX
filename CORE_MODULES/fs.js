@@ -1,4 +1,4 @@
-const FileSystem = require("fs");
+// const FileSystem = require("fs");
 
 /********* יצירת תיקייה חדשה **********/
 // FileSystem.mkdir("./test", { recursive: true }, (error, path) => {
@@ -108,3 +108,47 @@ const FileSystem = require("fs");
 // console.log(isExists);
 
 /********* משימת יצירת מספר קבצים עם שמות דינאמיים בתוך תיקייה **********/
+// const fs = require("fs");
+// const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
+// const path = require("path");
+
+// const users = [
+//   { name: "first", last: "user" },
+//   { name: "second", last: "user" },
+//   { name: "third", last: "user" },
+// ];
+
+// const makeAndRemoveFilesAndFolder = async () => {
+//   const isExists = fs.existsSync(`${__dirname}/users`);
+//   if (!isExists) {
+//     try {
+//       await mkdir(`${__dirname}/users`);
+//       users.forEach(async user => {
+//         await writeFile(
+//           __dirname + `/users/${user.name}-${user.last}.txt`,
+//           `User name is: ${user.name} ${user.last}`
+//         );
+//       });
+
+//       await writeFile(__dirname + `/users/test.doc`, `Test file`);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   }
+
+//   setTimeout(async () => {
+//     try {
+//       const files = await readdir(__dirname + "/users");
+//       files.forEach(async file => {
+//         if (path.extname(file) == ".txt") {
+//           await unlink(`${__dirname}/users/${file}`);
+//         }
+//       });
+//       await rmdir(__dirname + "/users");
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   }, 5000);
+// };
+
+// makeAndRemoveFilesAndFolder();

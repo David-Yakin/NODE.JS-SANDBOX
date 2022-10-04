@@ -1,0 +1,17 @@
+{
+  "name": "joi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon .",
+    "app": "npm i && nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "joi": "^17.6.2",
+    "nodemon": "^2.0.15"
+  }
+}
