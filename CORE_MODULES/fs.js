@@ -108,95 +108,81 @@
 // console.log(isExists);
 
 /********* משימת יצירת מספר קבצים עם שמות דינאמיים בתוך תיקייה **********/
-// const fs = require("fs");
-// const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
-// const path = require("path");
-
-// const users = [
-//   { name: "first", last: "user" },
-//   { name: "second", last: "user" },
-//   { name: "third", last: "user" },
-// ];
-
-// const makeAndRemoveFilesAndFolder = async () => {
-//   const isExists = fs.existsSync(`${__dirname}/users`);
-//   if (!isExists) {
-//     try {
-//       await mkdir(`${__dirname}/users`);
-//       users.forEach(async user => {
-//         await writeFile(
-//           __dirname + `/users/${user.name}-${user.last}.txt`,
-//           `User name is: ${user.name} ${user.last}`
-//         );
-//       });
-
-//       await writeFile(__dirname + `/users/test.doc`, `Test file`);
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   }
-
-//   setTimeout(async () => {
-//     try {
-//       const files = await readdir(__dirname + "/users");
-//       files.forEach(async file => {
-//         if (path.extname(file) == ".txt") {
-//           await unlink(`${__dirname}/users/${file}`);
-//         }
-//       });
-//       await rmdir(__dirname + "/users");
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   }, 5000);
-// };
-
-// makeAndRemoveFilesAndFolder();
 const fs = require("fs");
 const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
+const path = require("path");
 
 const users = [
-  {
-    name: "yinon",
-    last: "perets",
-  },
-  {
-    name: "yossi",
-    last: "perets",
-  },
-  {
-    name: "yarin",
-    last: "perets",
-  },
+  { name: "first", last: "user" },
+  { name: "second", last: "user" },
+  { name: "third", last: "user" },
 ];
 
-const removeFilesAndFolders = async () => {
+const makeFiles = async () => {
   try {
-    const users = await mkdir(`${__dirname}/users`);
-    users.forEach(async user => await unlink(`${__dirname}/users/${user}`));
-    await rmdir(`${__dirname}/users`);
-  } catch (err) {
-    console.log(err.message);
+    users.forEach(async user => {
+      try {
+        await writeFile(
+          __dirname + `/users/${user.name}-${user.last}.txt`,
+          `User name is: ${user.name} ${user.last}`
+        );
+      } catch (error) {
+        return error;
+      }
+    });
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const removeFiles = async () => {
+  try {
+    const files = await readdir(__dirname + "/users");
+    files.forEach(async file => {
+      if (path.extname(file) == ".txt") {
+        await unlink(`${__dirname}/users/${file}`);
+      }
+    });
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject(error);
   }
 };
 
 const makeAndRemoveFilesAndFolder = async () => {
-  try {
-    const isExists = fs.existsSync(`${__dirname}/users`);
-    if (isExists) return removeFilesAndFolders();
-    await mkdir(`${__dirname}/users`);
-    for (let i = 0; i < 4; i++) {
-      await writeFile(
-        `${__dirname}/users/${users[i].name} ${users[i].last}.txt`,
-        `The username is: ${users[i].name} ${users[i].last}`
-      );
+  const isExists = fs.existsSync(`${__dirname}/users`);
+  if (!isExists) {
+    try {
+      await mkdir(`${__dirname}/users`);
+    } catch (error) {
+      console.log(error.message);
     }
-  } catch (err) {
-    console.log(err.message);
   }
-};
-makeAndRemoveFilesAndFolder();
 
-const setTimeoutOfusers = setTimeout(async () => {
-  await removeFilesAndFolders();
-}, 8000);
+  const files = await readdir(__dirname + "/users");
+  if (!files.length) {
+    try {
+      await makeFiles();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  try {
+    await writeFile(__dirname + `/users/test.doc`, `Test file`);
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  setTimeout(async () => {
+    try {
+      await removeFiles();
+      await rmdir(__dirname + "/users");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, 5000);
+};
+
+makeAndRemoveFilesAndFolder();
