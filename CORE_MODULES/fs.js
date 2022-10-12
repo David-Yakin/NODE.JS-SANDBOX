@@ -108,81 +108,81 @@
 // console.log(isExists);
 
 /********* משימת יצירת מספר קבצים עם שמות דינאמיים בתוך תיקייה **********/
-const fs = require("fs");
-const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
-const path = require("path");
+// const fs = require("fs");
+// const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
+// const path = require("path");
 
-const users = [
-  { name: "first", last: "user" },
-  { name: "second", last: "user" },
-  { name: "third", last: "user" },
-];
+// const users = [
+//   { name: "first", last: "user" },
+//   { name: "second", last: "user" },
+//   { name: "third", last: "user" },
+// ];
 
-const makeFiles = async () => {
-  try {
-    users.forEach(async user => {
-      try {
-        await writeFile(
-          __dirname + `/users/${user.name}-${user.last}.txt`,
-          `User name is: ${user.name} ${user.last}`
-        );
-      } catch (error) {
-        return error;
-      }
-    });
-    return Promise.resolve();
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
+// const makeFiles = async () => {
+//   try {
+//     users.forEach(async user => {
+//       try {
+//         await writeFile(
+//           __dirname + `/users/${user.name}-${user.last}.txt`,
+//           `User name is: ${user.name} ${user.last}`
+//         );
+//       } catch (error) {
+//         return error;
+//       }
+//     });
+//     return Promise.resolve();
+//   } catch (error) {
+//     return Promise.reject(error);
+//   }
+// };
 
-const removeFiles = async () => {
-  try {
-    const files = await readdir(__dirname + "/users");
-    files.forEach(async file => {
-      if (path.extname(file) == ".txt") {
-        await unlink(`${__dirname}/users/${file}`);
-      }
-    });
-    return Promise.resolve();
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
+// const removeFiles = async () => {
+//   try {
+//     const files = await readdir(__dirname + "/users");
+//     files.forEach(async file => {
+//       if (path.extname(file) == ".txt") {
+//         await unlink(`${__dirname}/users/${file}`);
+//       }
+//     });
+//     return Promise.resolve();
+//   } catch (error) {
+//     return Promise.reject(error);
+//   }
+// };
 
-const makeAndRemoveFilesAndFolder = async () => {
-  const isExists = fs.existsSync(`${__dirname}/users`);
-  if (!isExists) {
-    try {
-      await mkdir(`${__dirname}/users`);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+// const makeAndRemoveFilesAndFolder = async () => {
+//   const isExists = fs.existsSync(`${__dirname}/users`);
+//   if (!isExists) {
+//     try {
+//       await mkdir(`${__dirname}/users`);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   }
 
-  const files = await readdir(__dirname + "/users");
-  if (!files.length) {
-    try {
-      await makeFiles();
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+//   const files = await readdir(__dirname + "/users");
+//   if (!files.length) {
+//     try {
+//       await makeFiles();
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   }
 
-  try {
-    await writeFile(__dirname + `/users/test.doc`, `Test file`);
-  } catch (error) {
-    console.log(error.message);
-  }
+//   try {
+//     await writeFile(__dirname + `/users/test.doc`, `Test file`);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
 
-  setTimeout(async () => {
-    try {
-      await removeFiles();
-      await rmdir(__dirname + "/users");
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, 5000);
-};
+//   setTimeout(async () => {
+//     try {
+//       await removeFiles();
+//       await rmdir(__dirname + "/users");
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   }, 5000);
+// };
 
-makeAndRemoveFilesAndFolder();
+// makeAndRemoveFilesAndFolder();
