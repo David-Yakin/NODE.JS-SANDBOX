@@ -94,16 +94,31 @@ const Joi = require("joi");
 // console.log("valid!");
 
 /***** validation function *****/
-const validationFunction = obj => {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-  });
-  return schema.validate(obj);
-};
+// const validationFunction = obj => {
+//   const schema = Joi.object({
+//     name: Joi.string().required(),
+//   });
+//   return schema.validate(obj);
+// };
 
-const obj = { name: "David" };
+// const obj = { name: "David" };
 
-const { error } = validationFunction(obj);
+// const { error } = validationFunction(obj);
 
-if (error) return console.log(error.details[0].message);
-console.log("valid!");
+// if (error) return console.log(error.details[0].message);
+// console.log("valid!");
+
+/***** allow *****/
+// const validationFunction = obj => {
+//   const schema = Joi.object({
+//     name: Joi.string().min(2).allow(""),
+//   });
+//   return schema.validate(obj);
+// };
+
+// const obj = { name: "" };
+
+// const { error } = validationFunction(obj);
+
+// if (error) return console.log(error.details[0].message);
+// console.log("valid!");
