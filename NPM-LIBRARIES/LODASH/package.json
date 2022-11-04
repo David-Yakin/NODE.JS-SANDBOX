@@ -2,14 +2,18 @@
   "name": "lodash",
   "version": "1.0.0",
   "description": "",
-  "main": "random.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
